@@ -1,6 +1,6 @@
 package com.example.vkeducation
 
-val appDetails = listOf(
+val appsDetails = listOf(
     AppDetail(
         title = "Космические гонки",
         description = "Аркадные гонки на космических кораблях с друзьями и рейтингом игроков",
@@ -39,6 +39,11 @@ val appDetails = listOf(
     AppDetail(
         title = "Скидочник",
         description = "Все акции и промокоды любимых магазинов в одном месте",
+        category = AppCategory.PURCHASES
+    ),
+    AppDetail(
+        title = "Барахолка",
+        description = "Покупайте и продавайте вещи с рук рядом с домом",
         category = AppCategory.PURCHASES
     )
 )

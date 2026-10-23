@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vkeducation.components.AppDetailItem
 import com.example.vkeducation.components.ToolBar
+import com.example.vkeducation.navigation.NavGraph
 import com.example.vkeducation.ui.theme.VKEducationTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,15 +26,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VKEducationTheme {
-                AppDetailsScreen(appDetails = appDetails)
+                NavGraph()
             }
         }
     }
 }
 
 @Composable
-fun AppDetailsScreen(
+fun AppListScreen(
     appDetails: List<AppDetail>,
+    onAppClick: (AppDetail) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -49,7 +51,7 @@ fun AppDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             appDetails.forEach { appDetail ->
-                AppDetailItem(appDetail = appDetail)
+                AppDetailItem(appDetail = appDetail, onClick = { onAppClick(appDetail) })
             }
         }
     }
@@ -57,8 +59,8 @@ fun AppDetailsScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun AppDetailsScreenPreview() {
+fun AppListScreenPreview() {
     VKEducationTheme {
-        AppDetailsScreen(appDetails = appDetails)
+        AppListScreen(appDetails = appsDetails, onAppClick = {})
     }
 }

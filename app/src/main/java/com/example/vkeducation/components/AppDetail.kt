@@ -32,10 +32,12 @@ import com.example.vkeducation.ui.theme.VKEducationTheme
 @Composable
 fun AppDetailItem(
     appDetail: AppDetail,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        onClick = onClick,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLow
@@ -113,7 +115,8 @@ fun AppDetailItemPreview() {
                 title = "Test",
                 description = "Test test test...",
                 category = AppCategory.GAME
-            )
+            ),
+            onClick = {}
         )
     }
 }
