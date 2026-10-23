@@ -9,9 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.vkeducation.AppListScreen
 import com.example.vkeducation.appdetails.AppDetailsScreen
-import com.example.vkeducation.appsDetails
+import com.example.vkeducation.applist.AppListRoute
 
 @Composable
 fun NavGraph(
@@ -25,8 +24,7 @@ fun NavGraph(
         startDestination = AppList
     ) {
         composable<AppList> {
-            AppListScreen(
-                appDetails = appsDetails,
+            AppListRoute(
                 onAppClick = { navController.navigate(AppDetails) }
             )
         }

@@ -23,9 +23,11 @@ import com.example.vkeducation.ui.theme.VKEducationTheme
 
 @Composable
 fun ToolBar(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -56,6 +58,6 @@ fun ToolBar(
 @Composable
 fun ToolBarPreview() {
     VKEducationTheme {
-        ToolBar()
+        ToolBar(onClick = {})
     }
 }
