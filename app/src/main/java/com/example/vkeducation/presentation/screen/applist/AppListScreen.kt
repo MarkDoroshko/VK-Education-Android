@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vkeducation.R
+import com.example.vkeducation.di.AppContainer
 import com.example.vkeducation.presentation.components.ErrorState
 import com.example.vkeducation.presentation.preview.PreviewData
 import com.example.vkeducation.presentation.screen.applist.components.ToolBar
@@ -35,7 +36,7 @@ fun AppListRoute(
     onAppClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel = viewModel<AppListViewModel>()
+    val viewModel = viewModel { AppListViewModel(AppContainer.appRepository) }
     val state by viewModel.state.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }

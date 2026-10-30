@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vkeducation.R
+import com.example.vkeducation.di.AppContainer
 import com.example.vkeducation.presentation.components.ErrorState
 import com.example.vkeducation.presentation.preview.PreviewData
 import com.example.vkeducation.presentation.screen.appdetails.components.Toolbar
@@ -27,7 +28,7 @@ fun AppDetailsRoute(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel = viewModel<AppDetailsViewModel>()
+    val viewModel = viewModel { AppDetailsViewModel(AppContainer.appRepository) }
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(viewModel) {

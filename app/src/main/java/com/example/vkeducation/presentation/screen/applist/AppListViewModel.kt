@@ -2,8 +2,6 @@ package com.example.vkeducation.presentation.screen.applist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vkeducation.data.remote.api.AppApiImpl
-import com.example.vkeducation.data.repository.AppRepositoryImpl
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.repository.AppRepository
 import kotlinx.coroutines.channels.Channel
@@ -12,9 +10,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AppListViewModel : ViewModel() {
-    private val appRepository: AppRepository = AppRepositoryImpl(AppApiImpl())
-
+class AppListViewModel(
+    private val appRepository: AppRepository
+) : ViewModel() {
     private val _state = MutableStateFlow<AppListState>(AppListState.Loading)
     val state = _state.asStateFlow()
 
