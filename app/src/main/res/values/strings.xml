@@ -3,7 +3,6 @@
     <string name="category_game">Игры</string>
     <string name="category_learning">Обучение</string>
     <string name="category_purchases">Покупки</string>
-    <string name="category_app">Приложения</string>
 
     <string name="app_details_age">Возраст</string>
     <string name="app_details_size">Размер</string>
@@ -22,4 +21,6 @@
     <string name="app_details_showcase">Витрина</string>
 
     <string name="app_list_toolbar_snackbar">Добро пожаловать в VK Education!</string>
+    <string name="error_title">Упс…</string>
+    <string name="repeat_on_error">Повторить</string>
 </resources>
