@@ -13,9 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.vkeducation.R
-import com.example.vkeducation.di.AppContainer
 import com.example.vkeducation.presentation.components.ErrorState
 import com.example.vkeducation.presentation.preview.PreviewData
 import com.example.vkeducation.presentation.screen.appdetails.components.Toolbar
@@ -28,7 +27,7 @@ fun AppDetailsRoute(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel = viewModel { AppDetailsViewModel(AppContainer.appRepository) }
+    val viewModel = hiltViewModel<AppDetailsViewModel>()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(viewModel) {

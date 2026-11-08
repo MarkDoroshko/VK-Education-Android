@@ -14,15 +14,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.vkeducation.R
-import com.example.vkeducation.di.AppContainer
 import com.example.vkeducation.presentation.components.ErrorState
 import com.example.vkeducation.presentation.preview.PreviewData
 import com.example.vkeducation.presentation.screen.applist.components.ToolBar
@@ -36,9 +36,10 @@ fun AppListRoute(
     onAppClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel = viewModel { AppListViewModel(AppContainer.appRepository) }
+    val viewModel = hiltViewModel<AppListViewModel>()
     val state by viewModel.state.collectAsState()
 
+    val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarMessage = stringResource(R.string.app_list_toolbar_snackbar)
     val currentOnAppClick by rememberUpdatedState(onAppClick)
@@ -47,7 +48,7 @@ fun AppListRoute(
         viewModel.effect.collect { effect ->
             when (effect) {
                 AppListEffect.NavigateToApp -> currentOnAppClick()
-                AppListEffect.ShowTestSnackbar -> launch {
+                AppListEffect.ShowTestSnackbar -> coroutineScope.launch {
                     snackbarHostState.currentSnackbarData?.dismiss()
                     snackbarHostState.showSnackbar(
                         message = snackbarMessage,

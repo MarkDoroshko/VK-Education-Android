@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.vkeducation.domain.entity.AppDetails
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.repository.AppRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
@@ -12,8 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AppDetailsViewModel(
+@HiltViewModel
+class AppDetailsViewModel @Inject constructor(
     private val appRepository: AppRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow<AppDetailsState>(AppDetailsState.Loading)
