@@ -38,7 +38,7 @@ import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 fun AppDetailsData(
     appDetails: AppDetails,
     showcaseApps: List<AppSummary>,
-    onShowcaseAppClick: () -> Unit,
+    onShowcaseAppClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -98,7 +98,7 @@ fun AppDetailsData(
             color = MaterialTheme.colorScheme.outlineVariant,
         )
         Spacer(modifier = Modifier.height(12.dp))
-        Showcase(apps = showcaseApps, onAppClick = { onShowcaseAppClick() })
+        Showcase(apps = showcaseApps, onAppClick = { onShowcaseAppClick(it.id) })
     }
 }
 

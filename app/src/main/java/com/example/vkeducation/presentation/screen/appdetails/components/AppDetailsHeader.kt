@@ -27,6 +27,7 @@ import com.example.vkeducation.R
 import com.example.vkeducation.domain.entity.AppDetails
 import com.example.vkeducation.domain.entity.Category
 import com.example.vkeducation.presentation.preview.PreviewData
+import com.example.vkeducation.presentation.screen.applist.mapper.labelRes
 import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 import kotlin.math.roundToInt
 
@@ -90,11 +91,7 @@ fun AppDetailsHeader(
 // Статичные строки, которые не приходят из бэкенда
 // нужно хранить в ресурсах (strings.xml).
 @Composable
-private fun getCategoryText(category: Category): String = when (category) {
-    Category.LEARNING -> stringResource(R.string.category_learning)
-    Category.GAME -> stringResource(R.string.category_game)
-    Category.PURCHASES -> stringResource(R.string.category_purchases)
-}
+private fun getCategoryText(category: Category): String = stringResource(category.labelRes())
 
 @Preview
 @Composable

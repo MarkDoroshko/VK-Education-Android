@@ -1,8 +1,11 @@
 package com.example.vkeducation.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AppDetailsDto(
     val id: String,
-    val title: String,
+    val name: String,
     val developer: String,
     val category: String,
     val ageRating: Int,

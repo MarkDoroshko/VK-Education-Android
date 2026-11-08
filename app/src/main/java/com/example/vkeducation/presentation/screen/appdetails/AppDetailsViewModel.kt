@@ -1,10 +1,13 @@
 package com.example.vkeducation.presentation.screen.appdetails
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.example.vkeducation.domain.entity.AppDetails
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.repository.AppRepository
+import com.example.vkeducation.presentation.navigation.NavAppDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
@@ -17,8 +20,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val appId = savedStateHandle.toRoute<NavAppDetails>().appId
+
     private val _state = MutableStateFlow<AppDetailsState>(AppDetailsState.Loading)
     val state = _state.asStateFlow()
 
@@ -38,7 +44,7 @@ class AppDetailsViewModel @Inject constructor(
             _state.value = AppDetailsState.Loading
             runCatching {
                 coroutineScope {
-                    val appDetails = async { appRepository.getAppDetails() }
+                    val appDetails = async { appRepository.getAppDetails(appId) }
                     val showcaseApps = async { appRepository.getApps() }
                     _state.value = AppDetailsState.Data(
                         appDetails = appDetails.await(),
@@ -48,6 +54,12 @@ class AppDetailsViewModel @Inject constructor(
             }.onFailure {
                 _state.value = AppDetailsState.Error
             }
+        }
+    }
+
+    fun onNavigateToApp(appId: String) {
+        viewModelScope.launch {
+            _effect.send(AppDetailsEffect.NavigateToApp(appId))
         }
     }
 
@@ -69,4 +81,5 @@ sealed interface AppDetailsState {
 
 sealed interface AppDetailsEffect {
     data object NavigateToAppList : AppDetailsEffect
+    data class NavigateToApp(val appId: String) : AppDetailsEffect
 }

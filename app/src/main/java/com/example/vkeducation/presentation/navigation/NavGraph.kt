@@ -25,11 +25,12 @@ fun NavGraph(
     ) {
         composable<NavAppList> {
             AppListRoute(
-                onAppClick = { navController.navigate(NavAppDetails) }
+                onAppClick = { appId -> navController.navigate(NavAppDetails(appId)) }
             )
         }
         composable<NavAppDetails> {
             AppDetailsRoute(
+                onAppClick = { appId -> navController.navigate(NavAppDetails(appId)) },
                 onBackClick = {
                     navController.navigate(NavAppList) {
                         // Убираем карточку из стека и не создаём второй экземпляр списка

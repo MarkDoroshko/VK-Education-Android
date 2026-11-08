@@ -2,19 +2,13 @@ package com.example.vkeducation.data.remote.api
 
 import com.example.vkeducation.data.remote.dto.AppDetailsDto
 import com.example.vkeducation.data.remote.dto.AppSummaryDto
-import kotlinx.coroutines.delay
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-class AppApiImpl @Inject constructor() : AppApi {
-    override suspend fun getApps(): List<AppSummaryDto> {
-        delay(2.seconds)
-        return MockAppData.appSummaries
-    }
+interface AppApiService {
+    @GET("catalog")
+    suspend fun getApps(): List<AppSummaryDto>
 
-    override suspend fun getAppDetails(): AppDetailsDto {
-        delay(2.seconds)
-        return MockAppData.appDetails
-    }
-
+    @GET("catalog/{appId}")
+    suspend fun getAppDetails(@Path("appId") appId: String): AppDetailsDto
 }

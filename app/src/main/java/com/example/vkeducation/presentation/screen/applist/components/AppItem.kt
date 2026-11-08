@@ -14,19 +14,24 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.entity.Category
-import com.example.vkeducation.presentation.screen.applist.mapper.color
 import com.example.vkeducation.presentation.screen.applist.mapper.labelRes
 import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 
@@ -49,10 +54,7 @@ fun AppItem(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AppIcon(
-                title = app.name,
-                color = app.category.color()
-            )
+            AppIcon(iconUrl = app.iconUrl)
 
             Column(
                 modifier = Modifier,
@@ -84,26 +86,36 @@ fun AppItem(
     }
 }
 
-// Заглушка иконки приложения: градиент цвета категории и первая буква названия
 @Composable
 private fun AppIcon(
-    title: String,
-    color: Color,
+    iconUrl: String,
     modifier: Modifier = Modifier
 ) {
+    var isLoading by remember(iconUrl) { mutableStateOf(iconUrl.isNotBlank()) }
+
     Box(
         modifier = modifier
             .size(56.dp)
             .clip(RoundedCornerShape(14.dp))
-            .background(color),
-        contentAlignment = Alignment.Center
+            .background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
-        Text(
-            text = title.take(1).uppercase(),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
+        AsyncImage(
+            model = iconUrl.takeIf { it.isNotBlank() },
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize(),
+            onState = { state ->
+                isLoading = iconUrl.isNotBlank() &&
+                    (state is AsyncImagePainter.State.Empty || state is AsyncImagePainter.State.Loading)
+            }
         )
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(rememberShimmerBrush())
+            )
+        }
     }
 }
 

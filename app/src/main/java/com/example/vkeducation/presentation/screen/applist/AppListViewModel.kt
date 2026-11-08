@@ -26,9 +26,9 @@ class AppListViewModel @Inject constructor(
         loadingApps()
     }
 
-    fun onNavigateToApp() {
+    fun onNavigateToApp(appId: String) {
         viewModelScope.launch {
-            _effect.send(AppListEffect.NavigateToApp)
+            _effect.send(AppListEffect.NavigateToApp(appId))
         }
     }
 
@@ -62,6 +62,6 @@ sealed interface AppListState {
 }
 
 sealed interface AppListEffect {
-    data object NavigateToApp : AppListEffect
+    data class NavigateToApp(val appId: String) : AppListEffect
     data object ShowTestSnackbar : AppListEffect
 }

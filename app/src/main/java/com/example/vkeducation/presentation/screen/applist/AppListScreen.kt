@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AppListRoute(
-    onAppClick: () -> Unit,
+    onAppClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel = hiltViewModel<AppListViewModel>()
@@ -47,7 +47,7 @@ fun AppListRoute(
     LaunchedEffect(viewModel) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                AppListEffect.NavigateToApp -> currentOnAppClick()
+                is AppListEffect.NavigateToApp -> currentOnAppClick(effect.appId)
                 AppListEffect.ShowTestSnackbar -> coroutineScope.launch {
                     snackbarHostState.currentSnackbarData?.dismiss()
                     snackbarHostState.showSnackbar(
@@ -73,7 +73,7 @@ fun AppListRoute(
 fun AppListScreen(
     state: AppListState,
     snackbarHostState: SnackbarHostState,
-    onAppClick: () -> Unit,
+    onAppClick: (String) -> Unit,
     onToolbarClick: () -> Unit,
     onRepeat: () -> Unit,
     modifier: Modifier = Modifier

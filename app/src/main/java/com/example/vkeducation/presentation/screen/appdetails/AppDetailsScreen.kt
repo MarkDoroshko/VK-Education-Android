@@ -25,6 +25,7 @@ import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 @Composable
 fun AppDetailsRoute(
     onBackClick: () -> Unit,
+    onAppClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel = hiltViewModel<AppDetailsViewModel>()
@@ -34,6 +35,7 @@ fun AppDetailsRoute(
         viewModel.effect.collect { effect ->
             when (effect) {
                 AppDetailsEffect.NavigateToAppList -> onBackClick()
+                is AppDetailsEffect.NavigateToApp -> onAppClick(effect.appId)
             }
         }
     }
@@ -41,7 +43,7 @@ fun AppDetailsRoute(
     AppDetailsScreen(
         state = state,
         onBackClick = viewModel::onNavigateToAppList,
-        onShowcaseAppClick = viewModel::onNavigateToAppList,
+        onShowcaseAppClick = viewModel::onNavigateToApp,
         onRepeat = viewModel::onRepeat,
         modifier = modifier
     )
@@ -51,7 +53,7 @@ fun AppDetailsRoute(
 fun AppDetailsScreen(
     state: AppDetailsState,
     onBackClick: () -> Unit,
-    onShowcaseAppClick: () -> Unit,
+    onShowcaseAppClick: (String) -> Unit,
     onRepeat: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

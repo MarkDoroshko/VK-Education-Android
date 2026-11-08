@@ -6,5 +6,5 @@ import com.example.vkeducation.domain.entity.AppSummary
 interface AppRepository {
     suspend fun getApps(): List<AppSummary>
 
-    suspend fun getAppDetails(): AppDetails
+    suspend fun getAppDetails(appId: String): AppDetails
 }

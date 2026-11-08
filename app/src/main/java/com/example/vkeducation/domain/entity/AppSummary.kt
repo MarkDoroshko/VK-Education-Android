@@ -5,5 +5,6 @@ data class AppSummary(
     val id: String,
     val name: String,
     val description: String,
-    val category: Category
+    val category: Category,
+    val iconUrl: String = ""
 )
