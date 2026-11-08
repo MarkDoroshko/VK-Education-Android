@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">VK Education</string>
+    <string name="category_game">Игры</string>
+    <string name="category_learning">Обучение</string>
+    <string name="category_purchases">Покупки</string>
+
+    <string name="app_details_age">Возраст</string>
+    <string name="app_details_size">Размер</string>
+
+    <string name="install">Установить</string>
+
+    <string name="app_details_screenshots">Скриншоты</string>
+
+    <string name="app_details_description">Описание приложения</string>
+    <string name="app_details_read_more">Читать подробнее</string>
+
+    <string name="app_details_developer">Разработчик</string>
+
+    <string name="under_development">В процессе разработки</string>
+
+    <string name="app_details_showcase">Витрина</string>
+
+    <string name="app_list_toolbar_snackbar">Добро пожаловать в VK Education!</string>
+    <string name="error_title">Упс…</string>
+    <string name="repeat_on_error">Повторить</string>
+    <string name="category_productivity">Производительность</string>
+    <string name="category_health_and_fitness">Здоровье и фитнес</string>
+    <string name="category_photo_and_video">Фото и видео</string>
+    <string name="category_food_and_drink">Еда и напитки</string>
+    <string name="category_lifestyle">Образ жизни</string>
+    <string name="category_news">Новости</string>
+    <string name="category_music">Музыка</string>
+    <string name="category_finance">Финансы</string>
+    <string name="category_utilities">Утилиты</string>
+    <string name="category_navigation">Навигация</string>
+    <string name="category_communication">Общение</string>
+    <string name="category_business">Бизнес</string>
+    <string name="category_weather">Погода</string>
+    <string name="category_entertainment">Развлечения</string>
+    <string name="category_books_and_reference">Книги и справочники</string>
+    <string name="category_other">Другое</string>
 </resources>
