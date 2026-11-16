@@ -2,13 +2,22 @@ package com.example.vkeducation.data.remote.api
 
 import com.example.vkeducation.data.remote.dto.AppDetailsDto
 import com.example.vkeducation.data.remote.dto.AppSummaryDto
-import retrofit2.http.GET
-import retrofit2.http.Path
+import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-interface AppApiService {
-    @GET("catalog")
-    suspend fun getApps(): List<AppSummaryDto>
+class AppApiImpl @Inject constructor(
+    private val appApiService: AppApiService
+) {
+    suspend fun getApps(): List<AppSummaryDto> {
+        return appApiService.getApps()
+    }
 
-    @GET("catalog/{appId}")
-    suspend fun getAppDetails(@Path("appId") appId: String): AppDetailsDto
+    suspend fun getAppDetails(appId: String): AppDetailsDto {
+        return appApiService.getAppDetails(appId)
+    }
+
+    suspend fun getRating(id: String): Float {
+        delay(1500)
+        return (30..50).random() / 10f
+    }
 }

@@ -26,6 +26,7 @@ import com.example.vkeducation.R
 import com.example.vkeducation.domain.entity.AppDetails
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.presentation.preview.PreviewData
+import com.example.vkeducation.presentation.screen.appdetails.InstallState
 import com.example.vkeducation.presentation.screen.appdetails.components.AppDescription
 import com.example.vkeducation.presentation.screen.appdetails.components.AppDetailsHeader
 import com.example.vkeducation.presentation.screen.appdetails.components.Developer
@@ -38,7 +39,9 @@ import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 fun AppDetailsData(
     appDetails: AppDetails,
     showcaseApps: List<AppSummary>,
+    installState: InstallState,
     onShowcaseAppClick: (String) -> Unit,
+    onInstallClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -54,9 +57,8 @@ fun AppDetailsData(
         )
         Spacer(Modifier.height(16.dp))
         InstallButton(
-            onClick = {
-                Toast.makeText(context, underDevelopmentText, Toast.LENGTH_SHORT).show()
-            },
+            installState = installState,
+            onClick = onInstallClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -109,7 +111,9 @@ private fun PreviewAppDetailsData() {
         AppDetailsData(
             appDetails = PreviewData.appDetails,
             showcaseApps = PreviewData.apps,
+            installState = InstallState.NotInstalled,
             onShowcaseAppClick = {},
+            onInstallClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

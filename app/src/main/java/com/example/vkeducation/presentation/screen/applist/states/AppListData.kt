@@ -12,6 +12,7 @@ import com.example.vkeducation.presentation.screen.applist.components.AppItem
 @Composable
 fun AppListData(
     apps: List<AppSummary>,
+    ratings: Map<String, Float>,
     onAppClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -20,7 +21,12 @@ fun AppListData(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(apps, key = { it.id }) { app ->
-            AppItem(app = app, onClick = { onAppClick(app.id) })
+            AppItem(
+                app = app,
+                rating = ratings[app.id],
+                isRatingLoading = app.id !in ratings,
+                onClick = { onAppClick(app.id) }
+            )
         }
     }
 }

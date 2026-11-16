@@ -44,6 +44,7 @@ fun AppDetailsRoute(
         state = state,
         onBackClick = viewModel::onNavigateToAppList,
         onShowcaseAppClick = viewModel::onNavigateToApp,
+        onInstallClick = viewModel::onInstallClick,
         onRepeat = viewModel::onRepeat,
         modifier = modifier
     )
@@ -54,6 +55,7 @@ fun AppDetailsScreen(
     state: AppDetailsState,
     onBackClick: () -> Unit,
     onShowcaseAppClick: (String) -> Unit,
+    onInstallClick: () -> Unit,
     onRepeat: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -82,7 +84,9 @@ fun AppDetailsScreen(
                 is AppDetailsState.Data -> AppDetailsData(
                     appDetails = state.appDetails,
                     showcaseApps = state.showcaseApps,
+                    installState = state.installState,
                     onShowcaseAppClick = onShowcaseAppClick,
+                    onInstallClick = onInstallClick,
                     modifier = Modifier.fillMaxSize()
                 )
 
@@ -106,6 +110,7 @@ private fun Preview() {
             ),
             onBackClick = {},
             onShowcaseAppClick = {},
+            onInstallClick = {},
             onRepeat = {},
             modifier = Modifier.fillMaxSize(),
         )

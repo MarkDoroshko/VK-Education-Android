@@ -8,6 +8,10 @@
     <string name="app_details_size">Размер</string>
 
     <string name="install">Установить</string>
+    <string name="cancel_install">Отменить · %1$d%%</string>
+    <string name="installed">Установлено</string>
+    <string name="app_rating">★ %1$.1f</string>
+    <string name="app_rating_loading">Загрузка рейтинга…</string>
 
     <string name="app_details_screenshots">Скриншоты</string>
 

@@ -93,6 +93,7 @@ fun AppListScreen(
 
                 is AppListState.Data -> AppListData(
                     apps = state.apps,
+                    ratings = state.ratings,
                     onAppClick = onAppClick,
                     modifier = Modifier.fillMaxSize()
                 )

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
+import com.example.vkeducation.R
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.entity.Category
 import com.example.vkeducation.presentation.screen.applist.mapper.labelRes
@@ -39,7 +40,9 @@ import com.example.vkeducation.presentation.ui.theme.VKEducationTheme
 fun AppItem(
     app: AppSummary,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    rating: Float? = null,
+    isRatingLoading: Boolean = false
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -81,6 +84,18 @@ fun AppItem(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
+
+                if (rating != null || isRatingLoading) {
+                    Text(
+                        text = if (rating != null) {
+                            stringResource(R.string.app_rating, rating)
+                        } else {
+                            stringResource(R.string.app_rating_loading)
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
         }
     }
@@ -130,6 +145,7 @@ fun AppItemPreview() {
                 description = "Test test test...",
                 category = Category.GAME
             ),
+            rating = 4.5f,
             onClick = {}
         )
     }
