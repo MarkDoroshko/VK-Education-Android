@@ -34,24 +34,58 @@ fun AppDetailsDto.toEntity(): AppDetails {
     )
 }
 
-private fun String.toCategory(): Category = when (this.lowercase()) {
-    "game", "игры" -> Category.GAME
-    "learning", "образование" -> Category.LEARNING
-    "purchases", "шопинг" -> Category.PURCHASES
-    "производительность" -> Category.PRODUCTIVITY
-    "здоровье и фитнес" -> Category.HEALTH_AND_FITNESS
-    "фото и видео" -> Category.PHOTO_AND_VIDEO
-    "еда и напитки" -> Category.FOOD_AND_DRINK
-    "образ жизни" -> Category.LIFESTYLE
-    "новости" -> Category.NEWS
-    "музыка" -> Category.MUSIC
-    "финансы" -> Category.FINANCE
-    "утилиты" -> Category.UTILITIES
-    "навигация" -> Category.NAVIGATION
-    "общение" -> Category.COMMUNICATION
-    "бизнес" -> Category.BUSINESS
-    "погода" -> Category.WEATHER
-    "развлечения" -> Category.ENTERTAINMENT
-    "книги и справочники" -> Category.BOOKS_AND_REFERENCE
-    else -> Category.OTHER
+fun AppSummary.toDto(): AppSummaryDto {
+    return AppSummaryDto(
+        id = id,
+        name = name,
+        description = description,
+        category = categoryNames.getValue(category),
+        iconUrl = iconUrl
+    )
 }
+
+fun AppDetails.toDto(): AppDetailsDto {
+    return AppDetailsDto(
+        id = id,
+        name = name,
+        developer = developer,
+        category = categoryNames.getValue(category),
+        ageRating = ageRating,
+        size = size,
+        iconUrl = iconUrl,
+        screenshotUrlList = screenshotUrlList,
+        description = description
+    )
+}
+
+private val categoryNames = mapOf(
+    Category.GAME to "game",
+    Category.LEARNING to "learning",
+    Category.PURCHASES to "purchases",
+    Category.PRODUCTIVITY to "производительность",
+    Category.HEALTH_AND_FITNESS to "здоровье и фитнес",
+    Category.PHOTO_AND_VIDEO to "фото и видео",
+    Category.FOOD_AND_DRINK to "еда и напитки",
+    Category.LIFESTYLE to "образ жизни",
+    Category.NEWS to "новости",
+    Category.MUSIC to "музыка",
+    Category.FINANCE to "финансы",
+    Category.UTILITIES to "утилиты",
+    Category.NAVIGATION to "навигация",
+    Category.COMMUNICATION to "общение",
+    Category.BUSINESS to "бизнес",
+    Category.WEATHER to "погода",
+    Category.ENTERTAINMENT to "развлечения",
+    Category.BOOKS_AND_REFERENCE to "книги и справочники",
+    Category.OTHER to "other"
+)
+
+private val categoriesByName = categoryNames.entries.associate { (category, name) ->
+    name to category
+} + mapOf(
+    "игры" to Category.GAME,
+    "образование" to Category.LEARNING,
+    "шопинг" to Category.PURCHASES
+)
+
+private fun String.toCategory(): Category = categoriesByName[lowercase()] ?: Category.OTHER

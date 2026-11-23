@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vkeducation.domain.entity.AppSummary
 import com.example.vkeducation.domain.repository.AppRepository
+import com.example.vkeducation.domain.usecase.GetAppsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
@@ -17,6 +18,7 @@ import kotlin.system.measureTimeMillis
 
 @HiltViewModel
 class AppListViewModel @Inject constructor(
+    private val getApps: GetAppsUseCase,
     private val appRepository: AppRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow<AppListState>(AppListState.Loading)
@@ -49,7 +51,7 @@ class AppListViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = AppListState.Loading
             runCatching {
-                val apps = appRepository.getApps()
+                val apps = getApps()
                 _state.value = AppListState.Data(apps = apps)
 
                 val ids = apps.map { it.id }

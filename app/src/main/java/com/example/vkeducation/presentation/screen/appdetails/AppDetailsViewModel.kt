@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.example.vkeducation.domain.entity.AppDetails
 import com.example.vkeducation.domain.entity.AppSummary
-import com.example.vkeducation.domain.repository.AppRepository
+import com.example.vkeducation.domain.usecase.GetAppDetailsUseCase
+import com.example.vkeducation.domain.usecase.GetAppsUseCase
 import com.example.vkeducation.presentation.navigation.NavAppDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -24,7 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
-    private val appRepository: AppRepository,
+    private val getAppDetails: GetAppDetailsUseCase,
+    private val getApps: GetAppsUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val appId = savedStateHandle.toRoute<NavAppDetails>().appId
@@ -90,8 +92,8 @@ class AppDetailsViewModel @Inject constructor(
             _state.value = AppDetailsState.Loading
             runCatching {
                 coroutineScope {
-                    val appDetails = async { appRepository.getAppDetails(appId) }
-                    val showcaseApps = async { appRepository.getApps() }
+                    val appDetails = async { getAppDetails(appId) }
+                    val showcaseApps = async { getApps() }
                     _state.value = AppDetailsState.Data(
                         appDetails = appDetails.await(),
                         showcaseApps = showcaseApps.await()
